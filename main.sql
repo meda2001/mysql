@@ -94,6 +94,47 @@ INSERT INTO Box_Office (movie_id, budget, box_office_collection, domestic_collec
 (4, 149000000, 821847012, 412563408, 409283604),  -- Wonder Woman
 (5, 205000000, 363656624, 58200000, 305456624);  -- Tenet
 
+-- Insert more directors into directors table
+INSERT INTO directors (name, dob, nationatlity, awards) VALUES 
+('Quentin Tarantino', '1963-03-27', 'American', '2 Academy Awards'),
+('James Cameron', '1954-08-16', 'Canadian', '3 Academy Awards'),
+('Greta Gerwig', '1983-08-04', 'American', 'Golden Globe Award'),
+('Martin Scorsese', '1942-11-17', 'American', '1 Academy Award'),
+('Alfonso Cuarón', '1961-11-28', 'Mexican', '4 Academy Awards');
+
+-- Insert more movies into movie table
+INSERT INTO movie (title, release_year, genre, language, duration_minitues, rating, director_id) VALUES 
+('Pulp Fiction', 1994, 'Crime', 'English', 154, 8.9, 5),
+('Avatar', 2009, 'Sci-Fi', 'English', 162, 7.8, 6),
+('Little Women', 2019, 'Drama', 'English', 135, 7.8, 7),
+('The Irishman', 2019, 'Crime', 'English', 209, 7.8, 8),
+('Gravity', 2013, 'Sci-Fi', 'English', 91, 7.7, 9);
+
+-- Insert more actors into Actors table
+INSERT INTO Actors (name, dob, nationatlity, gender, debut_year) VALUES 
+('Samuel L. Jackson', 1948, 'American', 'M', 1972),
+('Zoe Saldana', 1978, 'American', 'F', 1999),
+('Timothée Chalamet', 1995, 'American', 'M', 2012),
+('Robert De Niro', 1943, 'American', 'M', 1963),
+('Sandra Bullock', 1964, 'American', 'F', 1987);
+
+-- Insert more cast roles into Movie_cast table
+INSERT INTO Movie_cast (actor_id, movie_id, role_name, screen_time_min) VALUES 
+(6, 6, 'Jules Winnfield', 100),  -- Samuel L. Jackson in Pulp Fiction
+(7, 7, 'Neytiri', 90),  -- Zoe Saldana in Avatar
+(8, 8, 'Laurie', 60),  -- Timothée Chalamet in Little Women
+(9, 9, 'Frank Sheeran', 120),  -- Robert De Niro in The Irishman
+(10, 10, 'Dr. Ryan Stone', 80);  -- Sandra Bullock in Gravity
+
+-- Insert more box office records into Box_Office table
+INSERT INTO Box_Office (movie_id, budget, box_office_collection, domestic_collection, international_collection) VALUES 
+(6, 8000000, 213900000, 107928762, 105971238),  -- Pulp Fiction
+(7, 237000000, 2847246203, 760507625, 2086738578),  -- Avatar
+(8, 40000000, 218800000, 108100000, 110700000),  -- Little Women
+(9, 159000000, 79600000, 31000000, 48600000),  -- The Irishman
+(10, 100000000, 723192705, 274092705, 449100000);  -- Gravity
+
+
 select * from Box_Office;
 
 select * from Movie_cast;
@@ -109,3 +150,18 @@ select international_collection - domestic_collection as diff from Box_Office;
 -- part2 budget
 
 select budget*2 as new_budget from Box_Office;
+
+DELIMITER $$
+CREATE PROCEDURE GetMovies()
+BEGIN
+	SELECT *
+	FROM
+		movie;
+END$$
+DELIMITER ;
+
+call GetMovies();
+
+
+
+select * from movie where language in ('Telugu','Japanese');
