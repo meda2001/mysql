@@ -162,6 +162,10 @@ DELIMITER ;
 
 call GetMovies();
 
-
-
 select * from movie where language in ('Telugu','Japanese');
+
+
+select *  from Box_Office;
+select * from Box_Office where domestic_collection < international_collection order by movie_id DESC limit 5;
+
+select * from Box_Office where budget = (select max(budget) from Box_Office);
