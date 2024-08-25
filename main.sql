@@ -3,8 +3,6 @@ create database if not exists movies;
 
 use movies;
 
-drop table if exists directors;
-
 create table if not exists directors (
   director_id int primary key auto_increment,
   name varchar(50) not null,
@@ -105,3 +103,9 @@ select * from movie;
 select * from Actors;
 
 select * from directors;
+
+select international_collection - domestic_collection as diff from Box_Office;
+
+-- part2 budget
+
+select budget*2 as new_budget from Box_Office;
