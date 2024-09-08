@@ -11,8 +11,6 @@ create table if not exists directors (
   awards text
 );
 
-drop table if exists movie;
-
 create table if not exists movie(
  movie_id int primary key auto_increment,
  title varchar(255) not null,
@@ -169,3 +167,92 @@ select *  from Box_Office;
 select * from Box_Office where domestic_collection < international_collection order by movie_id DESC limit 5;
 
 select * from Box_Office where budget = (select max(budget) from Box_Office);
+
+
+select * from movie;
+
+select * from movie where title = 'Avatar';
+
+select * from movie where language ='Telugu' or  title = 'Avatar';
+
+select * from movie where language ='English' and rating > 8.0;
+
+select * from movie where genre like 'Sci%' and duration_minitues between 100 and 150 order by movie_id DESC ;
+
+select * from movie where genre like 'Sci%' and duration_minitues between 100 and 150 order by movie_id DESC limit 1;
+
+-- aggreate functions
+
+SELECT COUNT(*) FROM movie;
+SELECT COUNT(director_id) FROM directors;
+
+SELECT SUM(budget) FROM Box_Office;
+SELECT SUM(screen_time_min) FROM Movie_cast WHERE movie_id = 2;
+
+SELECT AVG(rating) FROM movie;
+SELECT AVG(duration_minitues) FROM movie;
+
+SELECT MIN(release_year) FROM movie;
+SELECT MIN(box_office_collection) FROM Box_Office;
+
+
+SELECT MAX(rating) FROM movie;
+SELECT MAX(budget) FROM Box_Office;
+
+select * from Actors;
+SELECT GROUP_CONCAT(name) FROM Actors;
+
+SELECT VARIANCE(rating) FROM movie;
+
+SELECT GROUP_CONCAT(genre) FROM movie;
+
+
+
+
+SELECT director_id, AVG(rating) 
+FROM movie 
+GROUP BY director_id;
+
+-- Drop the table if it already exists
+DROP TABLE IF EXISTS Employee;
+
+-- Create the Employee table
+CREATE TABLE Employee (
+  emp_id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  salary DECIMAL(10,2) NOT NULL,
+  tax_cuts DECIMAL(10,2) NOT NULL
+);
+
+
+-- Insert 10 records into the Employee table
+INSERT INTO Employee (name, salary, tax_cuts) VALUES
+('John Doe', 50000.00, 5000.00),
+('Jane Smith', 60000.00, 7000.00),
+('Alice Johnson', 75000.00, 8000.00),
+('Robert Brown', 55000.00, 6000.00),
+('Emily Davis', 72000.00, 7200.00),
+('Michael Wilson', 85000.00, 9000.00),
+('Sophia Martinez', 95000.00, 9500.00),
+('David Lee', 47000.00, 4000.00),
+('James White', 53000.00, 5500.00),
+('Linda Harris', 68000.00, 6800.00);
+
+
+SELECT *
+FROM Employee
+ORDER BY salary DESC
+LIMIT 1 OFFSET 1;
+
+select * FROM Employee;
+
+update  Employee set salary =  5000000.01 where emp_id = 1;
+
+select count(*) as total from Employee where tax_cuts <= 7000.00;
+-- '6'
+
+SET SQL_SAFE_UPDATES = 0;
+
+update Employee set tax_cuts = 0.00 where tax_cuts <= 7000;
+
+
